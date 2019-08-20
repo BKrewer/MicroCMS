@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MicroCMS.Infra.Migrations
 {
     [DbContext(typeof(APIContext))]
-    [Migration("20190726022317_initial")]
-    partial class initial
+    [Migration("20190820023926_teste1")]
+    partial class teste1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -34,8 +34,6 @@ namespace MicroCMS.Infra.Migrations
 
                     b.Property<int>("PostCategoryId");
 
-                    b.Property<int?>("PostCategoryId1");
-
                     b.Property<string>("SubTitle");
 
                     b.Property<string>("Title")
@@ -48,7 +46,7 @@ namespace MicroCMS.Infra.Migrations
 
                     b.HasIndex("PostCategoryId");
 
-                    b.HasIndex("PostCategoryId1");
+                    b.HasIndex("UserId");
 
                     b.ToTable("Posts");
                 });
@@ -92,14 +90,15 @@ namespace MicroCMS.Infra.Migrations
 
             modelBuilder.Entity("MicroCMS.Domain.Entities.Post", b =>
                 {
-                    b.HasOne("MicroCMS.Domain.Entities.User", "User")
+                    b.HasOne("MicroCMS.Domain.Entities.PostCategory", "PostCategory")
                         .WithMany("Posts")
                         .HasForeignKey("PostCategoryId")
                         .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("MicroCMS.Domain.Entities.PostCategory", "PostCategory")
+                    b.HasOne("MicroCMS.Domain.Entities.User", "User")
                         .WithMany("Posts")
-                        .HasForeignKey("PostCategoryId1");
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618
         }

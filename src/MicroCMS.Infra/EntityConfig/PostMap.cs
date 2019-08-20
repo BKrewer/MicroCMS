@@ -19,9 +19,12 @@ namespace MicroCMS.Infra.EntityConfig
 
             builder.HasOne(u => u.User)
                 .WithMany(p => p.Posts)
-                .HasForeignKey(p => p.UserId)
-                .HasForeignKey(p => p.PostCategoryId)
-                .HasPrincipalKey(p => p.Id)
+                .HasForeignKey(u => u.UserId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            builder.HasOne(c => c.PostCategory)
+                .WithMany(p => p.Posts)
+                .HasForeignKey(c => c.PostCategoryId)
                 .OnDelete(DeleteBehavior.Cascade);
         }
     }

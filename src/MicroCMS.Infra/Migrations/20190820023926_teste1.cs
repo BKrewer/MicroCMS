@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace MicroCMS.Infra.Migrations
 {
-    public partial class initial : Migration
+    public partial class teste1 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -53,24 +53,23 @@ namespace MicroCMS.Infra.Migrations
                     CreationDate = table.Column<DateTime>(nullable: false),
                     OccurrenceDate = table.Column<DateTime>(nullable: false),
                     UserId = table.Column<int>(nullable: false),
-                    PostCategoryId = table.Column<int>(nullable: false),
-                    PostCategoryId1 = table.Column<int>(nullable: true)
+                    PostCategoryId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Posts", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Posts_Users_PostCategoryId",
+                        name: "FK_Posts_PostCategories_PostCategoryId",
                         column: x => x.PostCategoryId,
-                        principalTable: "Users",
+                        principalTable: "PostCategories",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Posts_PostCategories_PostCategoryId1",
-                        column: x => x.PostCategoryId1,
-                        principalTable: "PostCategories",
+                        name: "FK_Posts_Users_UserId",
+                        column: x => x.UserId,
+                        principalTable: "Users",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
@@ -79,9 +78,9 @@ namespace MicroCMS.Infra.Migrations
                 column: "PostCategoryId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Posts_PostCategoryId1",
+                name: "IX_Posts_UserId",
                 table: "Posts",
-                column: "PostCategoryId1");
+                column: "UserId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -90,10 +89,10 @@ namespace MicroCMS.Infra.Migrations
                 name: "Posts");
 
             migrationBuilder.DropTable(
-                name: "Users");
+                name: "PostCategories");
 
             migrationBuilder.DropTable(
-                name: "PostCategories");
+                name: "Users");
         }
     }
 }
